@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#1B1E26">
+
+    <TextView
+        android:id="@+id/age_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/age"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:textColor="#171711"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"/>
+
+    <ImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/joker"
+        tools:ignore="ContentDescription" />
+
+    <RatingBar
+        android:id="@+id/movie_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="5"
+        android:layout_below="@id/age_limit"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        style="?android:attr/ratingBarStyleSmall" />
+
+    <TextView
+        android:id="@+id/movie_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/genre"
+        android:textSize="12sp"
+        android:textColor="#171711"
+        android:layout_below="@id/movie_rating"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/film_name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_below="@id/movie_genre"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>
