@@ -22,7 +22,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/movies_list"
-        android:textColor="#999999"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         android:textSize="24sp"
         android:layout_toEndOf="@id/play_icon"/>
 
