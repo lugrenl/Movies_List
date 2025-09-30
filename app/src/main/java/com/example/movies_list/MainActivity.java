@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
         genre.setText(movie.getGenre());
         title.setText(movie.getTitle());
 
-//        card.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, MovieDetailsActivity.class);
-//            intent.putExtra("movie", (Parcelable) movie);
-//            startActivity(intent);
-//        });
+        card.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MovieDetailsActivity.class);
+            intent.putExtra("movie", (Parcelable) movie);
+            startActivity(intent);
+        });
     }
 
     private List<Movie> getMovies() {

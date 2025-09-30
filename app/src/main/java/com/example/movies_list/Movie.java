@@ -1,6 +1,9 @@
 package com.example.movies_list;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
     private int id;
     private int poster;
     private String ageLimit;
@@ -17,51 +20,47 @@ public class Movie {
         this.title = title;
     }
 
-    public int getId() {
-        return id;
+    protected Movie(Parcel in) {
+        id = in.readInt();
+        poster = in.readInt();
+        ageLimit = in.readString();
+        rating = in.readFloat();
+        genre = in.readString();
+        title = in.readString();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    // Геттеры
+    public int getId() { return id; }
+    public int getPoster() { return poster; }
+    public String getAgeLimit() { return ageLimit; }
+    public float getRating() { return rating; }
+    public String getGenre() { return genre; }
+    public String getTitle() { return title; }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public int getPoster() {
-        return poster;
-    }
-
-    public void setPoster(int poster) {
-        this.poster = poster;
-    }
-
-    public String getAgeLimit() {
-        return ageLimit;
-    }
-
-    public void setAgeLimit(String ageLimit) {
-        this.ageLimit = ageLimit;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(poster);
+        dest.writeString(ageLimit);
+        dest.writeFloat(rating);
+        dest.writeString(genre);
+        dest.writeString(title);
     }
 }
