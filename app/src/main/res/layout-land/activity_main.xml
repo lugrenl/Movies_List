@@ -12,6 +12,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="6dp"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/play"
         tools:ignore="ContentDescription" />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:textStyle="bold"
         android:text="@string/movies_list"
         android:textColor="#FFFFFF"
