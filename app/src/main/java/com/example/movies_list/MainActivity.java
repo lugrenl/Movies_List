@@ -2,7 +2,6 @@ package com.example.movies_list;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout moviesGridContainer;
+    private List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         moviesGridContainer = findViewById(R.id.movies_grid_container);
+
+        if (movies == null) {
+            movies = getMovies();
+        }
         populateMoviesGrid();
     }
 
     private void populateMoviesGrid() {
-        List<Movie> movies = getMovies();
-
         // Получаем все ряды
         LinearLayout row1 = (LinearLayout) moviesGridContainer.getChildAt(0);
         LinearLayout row2 = (LinearLayout) moviesGridContainer.getChildAt(1);
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         card.setOnClickListener(v -> {
             Intent intent = new Intent(this, MovieDetailsActivity.class);
-            intent.putExtra("movie", (Parcelable) movie);
+            intent.putExtra("movie", movie);
             startActivity(intent);
         });
     }
