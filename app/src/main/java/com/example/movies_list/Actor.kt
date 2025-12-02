@@ -1,3 +1,11 @@
 package com.example.movies_list
 
-class Actor(var id: Int, var poster: Int, var name: String?)
+import android.os.Parcelable
+import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Actor(
+    val name: String,
+    @DrawableRes val photo: Int
+) : Parcelable
