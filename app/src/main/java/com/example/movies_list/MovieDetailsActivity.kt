@@ -1,83 +1,80 @@
-package com.example.movies_list;
+package com.example.movies_list
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.annotation.SuppressLint
+import android.os.Build
+import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-import androidx.appcompat.app.AppCompatActivity;
+class MovieDetailsActivity : AppCompatActivity() {
+    private var actorsGridContainer: LinearLayout? = null
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MovieDetailsActivity extends AppCompatActivity {
-
-    private LinearLayout actorsGridContainer;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_details);
-        actorsGridContainer = findViewById(R.id.actors_grid_container);
-        populateActorsGrid();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.movie_details)
+        actorsGridContainer = findViewById<LinearLayout>(R.id.actors_grid_container)
+        populateActorsGrid()
 
         // Получаем данные о фильме
-        Movie movie = getIntent().getParcelableExtra("movie");
+        val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("movie", Movie::class.java)
+        } else {
+            intent.getParcelableExtra<Movie>("movie")
+        }
         if (movie != null) {
-            setupMovieDetails(movie);
+            setupMovieDetails(movie)
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private void setupMovieDetails(Movie movie) {
-        ImageView poster = findViewById(R.id.movie_poster_details);
-        TextView ageLimit = findViewById(R.id.age_limit_details);
-        TextView title = findViewById(R.id.movie_title_details);
-        RatingBar rating = findViewById(R.id.movie_rating_details);
-        TextView genre = findViewById(R.id.movie_genre_details);
-        TextView storyLine = findViewById(R.id.storyline_text_details);
+    private fun setupMovieDetails(movie: Movie) {
+        val poster = findViewById<ImageView>(R.id.movie_poster_details)
+        val ageLimit = findViewById<TextView>(R.id.age_limit_details)
+        val title = findViewById<TextView>(R.id.movie_title_details)
+        val rating = findViewById<RatingBar>(R.id.movie_rating_details)
+        val genre = findViewById<TextView>(R.id.movie_genre_details)
+        val storyLine = findViewById<TextView>(R.id.storyline_text_details)
 
-        poster.setImageResource(movie.getPoster());
-        ageLimit.setText(movie.getAgeLimit());
-        title.setText(movie.getTitle());
-        rating.setRating(movie.getRating());
-        genre.setText(movie.getGenre());
-        storyLine.setText("Это хороший фильм с интересным сюжетом, не даром его назвали " + movie.getTitle());
+        poster.setImageResource(movie.poster)
+        ageLimit.text = movie.ageLimit
+        title.text = movie.title
+        rating.rating = movie.rating
+        genre.text = movie.genre
+        storyLine.text = "Это хороший фильм с интересным сюжетом, не даром его назвали " + movie.title
     }
 
-    private void populateActorsGrid() {
-        List<Actor> actors = getActors();
+    private fun populateActorsGrid() {
+        val actors = this.actors
 
-        // Заполняем ряд
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(0), actors.get(0));
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(1), actors.get(1));
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(2), actors.get(2));
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(3), actors.get(3));
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(4), actors.get(4));
-        fillCard((ViewGroup) actorsGridContainer.getChildAt(5), actors.get(5));
+        for (i in 0 until actorsGridContainer!!.childCount) {
+            // Заполняем ряд
+            fillCard((actorsGridContainer!!.getChildAt(i) as ViewGroup?)!!, actors[i]!!)
+        }
     }
 
-    private void fillCard(ViewGroup card, Actor actor){
-        ImageView poster = card.findViewById(R.id.actor_poster);
-        TextView actorName = card.findViewById(R.id.actor_name);
+    private fun fillCard(card: ViewGroup, actor: Actor) {
+        val poster = card.findViewById<ImageView>(R.id.actor_poster)
+        val actorName = card.findViewById<TextView>(R.id.actor_name)
 
-        poster.setImageResource(actor.getPoster());
-        actorName.setText(actor.getName());
+        poster.setImageResource(actor.poster)
+        actorName.text = actor.name
     }
 
-    private List<Actor> getActors() {
-        List<Actor> actors = new ArrayList<>();
+    private val actors: MutableList<Actor?>
+        get() {
+            val actors: MutableList<Actor?> = ArrayList()
 
-        actors.add(new Actor(1, R.drawable.carl_weathers, "Carl Weathers"));
-        actors.add(new Actor(2, R.drawable.chris_bartlett, "Chris Bartlett"));
-        actors.add(new Actor(3, R.drawable.gina_carano, "Gina Carano"));
-        actors.add(new Actor(4, R.drawable.misty_rosas, "Misty Rosas"));
-        actors.add(new Actor(5, R.drawable.pedro_pascal, "Pedro Pascal"));
-        actors.add(new Actor(6, R.drawable.rio_hackford, "Rio Hackford"));
+            actors.add(Actor(1, R.drawable.carl_weathers, "Carl Weathers"))
+            actors.add(Actor(2, R.drawable.chris_bartlett, "Chris Bartlett"))
+            actors.add(Actor(3, R.drawable.gina_carano, "Gina Carano"))
+            actors.add(Actor(4, R.drawable.misty_rosas, "Misty Rosas"))
+            actors.add(Actor(5, R.drawable.pedro_pascal, "Pedro Pascal"))
+            actors.add(Actor(6, R.drawable.rio_hackford, "Rio Hackford"))
 
-        return actors;
-    }
+            return actors
+        }
 }
