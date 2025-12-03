@@ -64,15 +64,21 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     }
 
     private fun fillCard(card: ViewGroup, movie: Movie) {
-        card.findViewById<ImageView>(R.id.movie_poster).setImageResource(movie.poster)
+        // Задаем transitionName и передаем View в listener
+        val posterImageView = card.findViewById<ImageView>(R.id.movie_poster)
+        posterImageView.setImageResource(movie.poster)
+        // Задаем уникальное имя для анимации
+        posterImageView.transitionName = "poster_${movie.id}"
+
         card.findViewById<TextView>(R.id.age_limit).text = movie.ageLimit
         card.findViewById<RatingBar>(R.id.movie_rating).rating = movie.rating
         card.findViewById<TextView>(R.id.movie_genre).text = movie.genre
         card.findViewById<TextView>(R.id.movie_title).text = movie.title
 
         card.setOnClickListener {
-            // Сообщаем listener'у (MainActivity) о клике
-            listener?.onMovieClicked(movie)
+            // Сообщаем listener'у (MainActivity) о клике,
+            // передаем сам posterImageView для анимации
+            listener?.onMovieClicked(movie, posterImageView)
         }
     }
 
@@ -84,6 +90,6 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 
     // Интерфейс для сообщения MainActivity о клике на фильм
     interface OnMovieClickListener {
-        fun onMovieClicked(movie: Movie)
+        fun onMovieClicked(movie: Movie, sharedView: View)
     }
 }

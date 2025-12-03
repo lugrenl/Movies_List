@@ -1,6 +1,7 @@
 package com.example.movies_list
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movies_list.entity.Movie
@@ -25,8 +26,10 @@ class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListene
     }
 
     // Этот метод вызывается из MoviesListFragment при клике на фильм
-    override fun onMovieClicked(movie: Movie) {
+    override fun onMovieClicked(movie: Movie, sharedView: View) {
         supportFragmentManager.beginTransaction()
+            // Указываем, какой View и с каким именем будет анимироваться
+            .addSharedElement(sharedView, sharedView.transitionName)
             .replace(R.id.fragment_container, MovieDetailsFragment.newInstance(movie))
             .addToBackStack(null)
             .commit()
