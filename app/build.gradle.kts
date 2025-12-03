@@ -37,7 +37,10 @@ android {
 }
 
 dependencies {
-
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    // Fragment-KTX для удобного получения ViewModel
+    implementation("androidx.fragment:fragment-ktx:1.7.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
