@@ -1,15 +1,16 @@
-package com.example.movies_list
+package com.example.movies_list.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-
+import com.example.movies_list.R
+import com.example.movies_list.entity.Movie
 
 class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 

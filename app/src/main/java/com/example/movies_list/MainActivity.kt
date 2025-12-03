@@ -3,6 +3,9 @@ package com.example.movies_list
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.movies_list.entity.Movie
+import com.example.movies_list.fragments.MovieDetailsFragment
+import com.example.movies_list.fragments.MoviesListFragment
 
 
 class MainActivity : AppCompatActivity(), MoviesListFragment.OnMovieClickListener {
